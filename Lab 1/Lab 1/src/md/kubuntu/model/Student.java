@@ -1,4 +1,4 @@
-package model;
+package md.kubuntu.model;
 
 import java.time.LocalDate;
 

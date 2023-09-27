@@ -1,4 +1,8 @@
-import model.Faculty;
+package md.kubuntu.command;
+
+import md.kubuntu.data.DataManager;
+import md.kubuntu.Main;
+import md.kubuntu.Menu;
 
 import java.util.ArrayList;
 import java.util.Objects;

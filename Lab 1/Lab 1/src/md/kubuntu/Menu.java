@@ -1,3 +1,5 @@
+package md.kubuntu;
+
 public class Menu {
 
     public static void printMainCommands() {

@@ -1,4 +1,9 @@
-import java.io.IOException;
+package md.kubuntu;
+
+import md.kubuntu.command.FacultyCommand;
+import md.kubuntu.command.GeneralCommand;
+import md.kubuntu.command.StudentCommand;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

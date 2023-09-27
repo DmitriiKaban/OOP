@@ -1,4 +1,4 @@
-package md.kubuntu;
+package md.kubuntu.data;
 
 import java.io.*;
 import md.kubuntu.model.Faculty;

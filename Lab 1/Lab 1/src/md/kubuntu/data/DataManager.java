@@ -1,4 +1,4 @@
-package md.kubuntu;
+package md.kubuntu.data;
 
 import md.kubuntu.model.Faculty;
 import md.kubuntu.model.Student;

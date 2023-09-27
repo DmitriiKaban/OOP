@@ -1,3 +1,5 @@
+package md.kubuntu.command;
+
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
