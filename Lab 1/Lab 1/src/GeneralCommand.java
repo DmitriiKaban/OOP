@@ -43,6 +43,7 @@ public class GeneralCommand {
             }
         }
 
+        scanner.close();
 
     }
 }
