@@ -30,4 +30,9 @@ public class Faculty {
     public StudyField getStudyField() {
         return studyField;
     }
+
+    @Override
+    public String toString() {
+        return "Faculty name: " + name + "(" + abbreviation + "), study field: " + studyField;
+    }
 }

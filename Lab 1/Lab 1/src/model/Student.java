@@ -46,4 +46,9 @@ public class Student {
     public void setGraduated(boolean b) {
         this.hasGraduated = b;
     }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName + ", " + email + ", birth date: " + dateOfBirth + ", is graduated: " + hasGraduated + ", was enrolled at" + enrollmentDate;
+    }
 }
