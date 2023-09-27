@@ -4,8 +4,7 @@ import java.util.Scanner;
 
 public class StudentCommand {
 
-    private DataManager manager = new DataManager();
-
     public StudentCommand() {
+        System.out.println("Student commands are in progress...");
     }
 }

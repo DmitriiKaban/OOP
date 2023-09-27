@@ -4,8 +4,6 @@ import java.util.Scanner;
 
 public class GeneralCommand {
 
-    private DataManager manager = new DataManager();
-
     public GeneralCommand() {
 
         Scanner scanner = new Scanner(System.in);

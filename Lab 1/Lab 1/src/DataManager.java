@@ -90,7 +90,6 @@ public class DataManager {
 
 
         String facultyAbbreviation = parsedCommand.get(1);
-        boolean abbreviationIsPresent = false;
 
         Faculty faculty = getFacultyByAbbreviation(facultyAbbreviation);
         if (faculty != null) {
