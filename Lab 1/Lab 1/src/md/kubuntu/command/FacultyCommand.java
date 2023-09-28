@@ -10,14 +10,13 @@ import java.util.Scanner;
 
 public class FacultyCommand {
 
-    public FacultyCommand() {
+    public FacultyCommand(Scanner scanner) {
 
-        Scanner scanner = new Scanner(System.in);
         String nextCommand = null;
 
         while (!Objects.equals(nextCommand, "b")) {
 
-            Menu.printGeneralCommands();
+            Menu.printFacultyCommands();
             nextCommand = scanner.nextLine();
             ArrayList<String> parsedCommand = Main.parseCommand(nextCommand);
 
@@ -36,20 +35,21 @@ public class FacultyCommand {
                     DataManager.displayAllStudentsByFaculty(parsedCommand);
                     break;
                 case "dg":
-                    DataManager.displayAGraduatedStudentsByFaculty(parsedCommand);
+                    DataManager.displayGraduatedStudentsByFaculty(parsedCommand);
                     break;
                 case "bf":
                     DataManager.checkIfStudentIsPresentInFaculty(parsedCommand);
                     break;
                 case "b":
                     break;
+                case "q":
+                    System.exit(0);
+                    break;
                 default:
                     System.out.println("Unknown command!");
                     break;
             }
         }
-
-        scanner.close();
 
     }
 }

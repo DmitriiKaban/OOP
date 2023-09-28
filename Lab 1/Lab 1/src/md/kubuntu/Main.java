@@ -13,7 +13,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         Scanner scanner = new Scanner(System.in);
         String nextCommand = null;
 
@@ -24,13 +23,13 @@ public class Main {
 
             switch (parsedCommand.get(0)) {
                 case "g":
-                    new GeneralCommand();
+                    new GeneralCommand(scanner);
                     break;
                 case "f":
-                    new FacultyCommand();
+                    new FacultyCommand(scanner);
                     break;
                 case "s":
-                    new StudentCommand();
+                    new StudentCommand(scanner);
                     break;
                 case "q":
                     System.exit(0);
@@ -45,7 +44,7 @@ public class Main {
         scanner.close();
     }
 
-    static ArrayList<String> parseCommand(String input) {
+    public static ArrayList<String> parseCommand(String input) {
         String[] str = input.split("/");
 
         return new ArrayList<>(List.of(str));
