@@ -49,6 +49,6 @@ public class Student {
 
     @Override
     public String toString() {
-        return firstName + " " + lastName + ", " + email + ", birth date: " + dateOfBirth + ", is graduated: " + hasGraduated + ", was enrolled at" + enrollmentDate;
+        return firstName + " " + lastName + ", " + email + ", birth date: " + dateOfBirth + ", is graduated: " + hasGraduated + ", was enrolled at " + enrollmentDate;
     }
 }

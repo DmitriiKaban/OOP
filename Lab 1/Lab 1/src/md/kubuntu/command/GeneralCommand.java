@@ -10,9 +10,8 @@ import java.util.Scanner;
 
 public class GeneralCommand {
 
-    public GeneralCommand() {
+    public GeneralCommand(Scanner scanner) {
 
-        Scanner scanner = new Scanner(System.in);
         String nextCommand = null;
 
         while (!Objects.equals(nextCommand, "b")) {
@@ -41,13 +40,15 @@ public class GeneralCommand {
                     break;
                 case "b":
                     break;
+                case "q":
+                    System.exit(0);
+                    break;
                 default:
                     System.out.println("Unknown command!");
                     break;
             }
         }
 
-        scanner.close();
 
     }
 }

@@ -10,18 +10,23 @@ import java.util.ArrayList;
 
 public class DataManager {
 
-    private static ArrayList<Faculty> faculties = FileManager.loadData();
+    private static final ArrayList<Faculty> faculties = FileManager.loadData();
 
-    public static void createFaculty(ArrayList<String> parsedCommand) throws Exception {
+    public static void createFaculty(ArrayList<String> parsedCommand) {
 
         if (parsedCommand.size() != 4) {
-            System.out.println("Incorrect command");
+            System.out.println("Incorrect number of parameters");
             return;
         }
 
         StudyField studyField = StudyField.findStudyField(parsedCommand.get(3));
-        if (studyField == null)
-            throw new Exception();
+        if (studyField == null){
+            System.out.println(
+                    "No such field: " + parsedCommand.get(3) + " try one more time\n" +
+                    "Select from the following list: MECHANICAL_ENGINEERING, SOFTWARE_ENGINEERING, FOOD_TECHNOLOGY, URBANISM_ARCHITECTURE, VETERINARY_MEDICINE"
+            );
+            return;
+        }
 
         Faculty newFaculty = new Faculty(parsedCommand.get(1), parsedCommand.get(2), new ArrayList<>(), studyField);
 
@@ -34,7 +39,7 @@ public class DataManager {
     public static void searchStudent(ArrayList<String> parsedCommand) {
 
         if (parsedCommand.size() != 2) {
-            System.out.println("Incorrect command");
+            System.out.println("Incorrect number of parameters");
             return;
         }
 
@@ -64,43 +69,57 @@ public class DataManager {
 
     }
 
-    public static void displayFaculties(ArrayList<String> parsedCommand) throws Exception {
+    public static void displayFaculties(ArrayList<String> parsedCommand) {
 
-        System.out.println("======Faculties======");
+        StringBuilder facultiesString = new StringBuilder();
         if (parsedCommand.size() == 2) {
             StudyField studyField = StudyField.findStudyField(parsedCommand.get(1));
 
-            if (studyField == null)
-                throw new Exception();
+            if (studyField == null){
+                System.out.println("No such study field: " + parsedCommand.get(1));
+                return;
+            }
 
             boolean facultiesByFieldPresent = false;
 
             for (Faculty f : faculties) {
                 if (f.getStudyField().equals(studyField)) {
-                    System.out.println(f);
+                    facultiesString.append(f);
+                    facultiesString.append('\n');
                     facultiesByFieldPresent = true;
                 }
             }
 
             if (!facultiesByFieldPresent)
                 System.out.println("Faculty list is empty");
+            else {
+                System.out.println("======Faculties======");
+                System.out.print(facultiesString);
+                System.out.println("======Faculties======");
+
+            }
 
         } else if (parsedCommand.size() == 1) {
 
             if (faculties.isEmpty()) {
                 System.out.println("Faculty list is empty");
             } else {
-                for (Faculty f : faculties)
-                    System.out.println(f);
+                for (Faculty f : faculties) {
+                    facultiesString.append(f);
+                    facultiesString.append('\n');
+                }
+
+                System.out.println("======Faculties======");
+                System.out.print(facultiesString);
+                System.out.println("======Faculties======");
             }
         }
-        System.out.println("======Faculties======");
     }
 
     public static void createStudent(ArrayList<String> parsedCommand) {
 
         if (parsedCommand.size() != 8) {
-            System.out.println("Incorrect command");
+            System.out.println("Incorrect number of parameters");
             return;
         }
 
@@ -112,13 +131,9 @@ public class DataManager {
         }
 
         String dateOfBirthStr = parsedCommand.get(5) + "/" + parsedCommand.get(6) + "/" + parsedCommand.get(7);
-        System.out.println(dateOfBirthStr);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         LocalDate dateOfBirth = LocalDate.parse(dateOfBirthStr, formatter);
-
-        System.out.println("after data");
-
 
         String facultyAbbreviation = parsedCommand.get(1);
 
@@ -140,20 +155,21 @@ public class DataManager {
     public static void graduateStudent(ArrayList<String> parsedCommand) {
 
         if (parsedCommand.size() != 2) {
-            System.out.println("Incorrect command");
+            System.out.println("Incorrect number of parameters for the command " + parsedCommand.get(0));
             return;
         }
 
-        Student student = getStudentByEmail(parsedCommand.get(1));
+        String email = parsedCommand.get(1);
+        Student student = getStudentByEmail(email);
 
         if (student == null) {
-            System.out.println("Student with email " + parsedCommand.get(1) + " is not present");
+            System.out.println("Student with email " + email + " is not present");
             return;
         }
 
         student.setGraduated(true);
         FileManager.saveData(faculties);
-        System.out.println("Student " + student + " is now graduated!");
+        System.out.println("Student " + student.getFirstName() + " " + student.getLastName() + " is now graduated!");
     }
 
     public static Student getStudentByEmail(String email) {
@@ -179,7 +195,7 @@ public class DataManager {
     public static void displayAllStudentsByFaculty(ArrayList<String> params) {
 
         if (params.size() != 2) {
-            System.out.println("Incorrect command");
+            System.out.println("Incorrect number of parameters for the command " + params.get(0));
             return;
         }
 
@@ -188,41 +204,65 @@ public class DataManager {
             System.out.println("Incorrect abbreviation");
             return;
         }
-        System.out.println("======STUDENTS from " + faculty.getName() + "======");
-        for (Student st : faculty.getStudents())
-            System.out.println(st);
-        System.out.println("======STUDENTS from " + faculty.getName() + "======");
+
+        if (faculty.getStudents().isEmpty()) {
+            System.out.println("No students present in the faculty");
+            return;
+        }
+
+        StringBuilder stringOutput = new StringBuilder();
+        stringOutput.append("======STUDENTS from ").append(faculty.getName()).append("======\n");
+        System.out.println();
+        for (Student st : faculty.getStudents()) {
+            stringOutput.append(st);
+            stringOutput.append('\n');
+        }
+        stringOutput.append("======STUDENTS from ").append(faculty.getName()).append("======");
+        System.out.println(stringOutput);
     }
 
     public static void displayGraduatedStudentsByFaculty(ArrayList<String> parsedCommand) {
 
         if (parsedCommand.size() != 2) {
-            System.out.println("Incorrect command");
+            System.out.println("Incorrect number of parameters for the command " + parsedCommand.get(0));
             return;
         }
 
-        Faculty faculty = getFacultyByAbbreviation(parsedCommand.get(1));
+        String abbreviation = parsedCommand.get(1);
+        Faculty faculty = getFacultyByAbbreviation(abbreviation);
         if (faculty == null) {
-            System.out.println("Incorrect abbreviation");
+            System.out.println("Faculty with the following abbreviation: " + abbreviation + " doesn't exist");
             return;
         }
 
-        System.out.println("======STUDENTS graduated from " + faculty.getName() + "======");
+        StringBuilder stringOutput = new StringBuilder();
+        stringOutput.append("======STUDENTS graduated from ").append(faculty.getName()).append("======\n");
+        boolean foundStudent = false;
         for (Student st : faculty.getStudents())
-            if (st.isGraduated())
-                System.out.println(st);
-        System.out.println("======STUDENTS graduated from " + faculty.getName() + "======");
+            if (st.isGraduated()) {
+                stringOutput.append(st);
+                stringOutput.append('\n');
+                foundStudent = true;
+            }
+        stringOutput.append("======STUDENTS from ").append(faculty.getName()).append("======");
+
+        if (foundStudent)
+            System.out.println(stringOutput);
+        else
+            System.out.println("No graduated students");
     }
 
     public static void checkIfStudentIsPresentInFaculty(ArrayList<String> parsedCommand) {
 
         if (parsedCommand.size() != 3) {
-            System.out.println("Incorrect command");
+            System.out.println("Incorrect number of parameters for the command " + parsedCommand.get(0));
             return;
         }
 
-        Student student = getStudentByEmail(parsedCommand.get(2));
-        Faculty faculty = getFacultyByAbbreviation(parsedCommand.get(1));
+        String email = parsedCommand.get(2);
+        String abbreviation = parsedCommand.get(2);
+        Student student = getStudentByEmail(email);
+        Faculty faculty = getFacultyByAbbreviation(abbreviation);
 
         if (student != null) {
             if (faculty != null) {
@@ -233,9 +273,11 @@ public class DataManager {
                     }
             } else {
                 System.out.println("Faculty is not present");
+                return;
             }
         } else {
-            System.out.println("Email is not found");
+            System.out.println("Student with email " + email + " doesn't exist");
+            return;
         }
 
         System.out.println("Student doesn't belong to faculty");
