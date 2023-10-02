@@ -38,7 +38,7 @@ public class FileManager {
             }
 
         } catch (IOException e) {
-//            System.err.println("Error saving data: " + e.getMessage());
+            System.err.println("Error saving data: " + e.getMessage());
         }
     }
 
@@ -89,7 +89,7 @@ public class FileManager {
 
 
         } catch (IOException e) {
-//            System.err.println("Error loading data: " + e.getMessage());
+            System.err.println("Error loading data: " + e.getMessage());
         }
 
         return faculties;
