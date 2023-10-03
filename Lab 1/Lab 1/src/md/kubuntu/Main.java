@@ -14,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        String nextCommand = null;
+        String nextCommand = "";
 
         while (!Objects.equals(nextCommand, "q")) {
             Menu.printMainCommands();
@@ -23,13 +23,13 @@ public class Main {
 
             switch (parsedCommand.get(0)) {
                 case "g":
-                    new GeneralCommand(scanner);
+                    GeneralCommand.start(scanner);
                     break;
                 case "f":
-                    new FacultyCommand(scanner);
+                    FacultyCommand.start(scanner);
                     break;
                 case "s":
-                    new StudentCommand(scanner);
+                    StudentCommand.start(scanner);
                     break;
                 case "q":
                     System.exit(0);

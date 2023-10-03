@@ -43,6 +43,7 @@ public class FileManager {
     }
 
     public static ArrayList<Faculty> loadData() {
+
         ArrayList<Faculty> faculties = new ArrayList<>();
         Faculty currentFaculty = null;
         Student currentStudent;

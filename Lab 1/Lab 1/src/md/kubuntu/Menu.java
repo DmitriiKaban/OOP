@@ -1,5 +1,6 @@
 package md.kubuntu;
 
+// MenuMessages
 public class Menu {
 
     public static void printMainCommands() {

@@ -9,7 +9,8 @@ import java.util.Scanner;
 
 public class StudentCommand {
 
-    public StudentCommand(Scanner scanner) {
+
+    public static void start(Scanner scanner) {
 
         String nextCommand = null;
 

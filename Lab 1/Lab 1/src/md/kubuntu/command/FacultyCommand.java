@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class FacultyCommand {
 
-    public FacultyCommand(Scanner scanner) {
+    public static void start(Scanner scanner) {
 
         String nextCommand = null;
 

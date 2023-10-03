@@ -1,5 +1,6 @@
 package md.kubuntu.data;
 
+import md.kubuntu.Logger;
 import md.kubuntu.model.Faculty;
 import md.kubuntu.model.Student;
 import md.kubuntu.model.StudyField;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 public class DataManager {
 
     private static final ArrayList<Faculty> faculties = FileManager.loadData();
+    private static final Logger logger = new Logger();
 
     public static void createFaculty(ArrayList<String> parsedCommand) {
 
@@ -22,13 +24,27 @@ public class DataManager {
         StudyField studyField = StudyField.findStudyField(parsedCommand.get(3));
         if (studyField == null){
             System.out.println(
-                    "No such field: " + parsedCommand.get(3) + " try one more time\n" +
+                    "No such study field: " + parsedCommand.get(3) + " try one more time\n" +
                     "Select from the following list: MECHANICAL_ENGINEERING, SOFTWARE_ENGINEERING, FOOD_TECHNOLOGY, URBANISM_ARCHITECTURE, VETERINARY_MEDICINE"
             );
+            logger.log("Error while creating new faculty: no such study field: " + parsedCommand.get(3));
+            return;
+        }
+        String abbreviation = parsedCommand.get(2);
+        String facultyName = parsedCommand.get(1);
+        if (getFacultyByAbbreviation(abbreviation) != null) {
+            System.out.println("Faculty with abbreviation " + abbreviation + " already exists!");
+            logger.log("Error while creating new faculty: faculty with abbreviation " + abbreviation + " already exists!");
+            return;
+        }
+        if (getFacultyByAbbreviation(facultyName) != null) {
+            System.out.println("Faculty with name " + facultyName + " already exists!");
+            logger.log("Error while creating new faculty: faculty with name " + facultyName + " already exists!");
             return;
         }
 
-        Faculty newFaculty = new Faculty(parsedCommand.get(1), parsedCommand.get(2), new ArrayList<>(), studyField);
+        Faculty newFaculty = new Faculty(facultyName, abbreviation, new ArrayList<>(), studyField);
+        logger.log("Created a new faculty: " + newFaculty);
 
         System.out.println("New faculty created: " + newFaculty);
 
@@ -51,7 +67,7 @@ public class DataManager {
                 for (Student st : faculty.getStudents()) {
                     if (st.getEmail().equals(email)) {
                         studentFound = true;
-                        System.out.println("Student with email " + email + " is present in the faculty:" + faculty);
+                        System.out.println("Student with email " + email + " is present in the faculty:" + faculty.getName());
                     }
                     if (studentFound)
                         break;
@@ -127,6 +143,7 @@ public class DataManager {
 
         if (getStudentByEmail(email) != null) {
             System.out.println("Email is already taken, try another one");
+            logger.log("Error while creating new student: email " + email + " already exists!");
             return;
         }
 
@@ -142,9 +159,11 @@ public class DataManager {
 
             Student student = new Student(parsedCommand.get(2), parsedCommand.get(3), email, LocalDate.now()
                     , dateOfBirth, false);
-            faculty.getStudents().add(student);
+
+            faculty.addStudent(student);
             FileManager.saveData(faculties);
             System.out.println("Student:" + student + ", was successfully added to the faculty " + faculty.getName());
+            logger.log("Student:" + student + ", was added to the faculty " + faculty.getName());
 
         } else {
             System.out.println("Incorrect faculty abbreviation");
@@ -170,6 +189,7 @@ public class DataManager {
         student.setGraduated(true);
         FileManager.saveData(faculties);
         System.out.println("Student " + student.getFirstName() + " " + student.getLastName() + " is now graduated!");
+        logger.log("Graduated " + student + " student");
     }
 
     public static Student getStudentByEmail(String email) {
@@ -186,6 +206,15 @@ public class DataManager {
     public static Faculty getFacultyByAbbreviation(String abbreviation) {
         for (Faculty faculty : faculties) {
             if (faculty.getAbbreviation().equalsIgnoreCase(abbreviation))
+                return faculty;
+        }
+
+        return null;
+    }
+
+    public static Faculty getFacultyByName(String name) {
+        for (Faculty faculty : faculties) {
+            if (faculty.getName().equalsIgnoreCase(name))
                 return faculty;
         }
 
@@ -281,6 +310,9 @@ public class DataManager {
         }
 
         System.out.println("Student doesn't belong to faculty");
+    }
 
+    public ArrayList<Faculty> getFaculties(){
+        return this.faculties;
     }
 }

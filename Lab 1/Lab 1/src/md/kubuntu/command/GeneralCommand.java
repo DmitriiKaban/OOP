@@ -10,7 +10,11 @@ import java.util.Scanner;
 
 public class GeneralCommand {
 
-    public GeneralCommand(Scanner scanner) {
+    public GeneralCommand() {
+
+    }
+
+    public static void start(Scanner scanner) {
 
         String nextCommand = null;
 
@@ -32,6 +36,13 @@ public class GeneralCommand {
                     DataManager.searchStudent(parsedCommand);
                     break;
                 case "df":
+                    try {
+                        DataManager.displayFaculties(parsedCommand);
+                    } catch (Exception e) {
+                        System.out.println("Incorrect command, try one more time");
+                    }
+                    break;
+                case "batch":
                     try {
                         DataManager.displayFaculties(parsedCommand);
                     } catch (Exception e) {

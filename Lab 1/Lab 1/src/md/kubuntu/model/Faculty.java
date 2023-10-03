@@ -35,4 +35,8 @@ public class Faculty {
     public String toString() {
         return "Faculty name: " + name + "(" + abbreviation + "), study field: " + studyField;
     }
+
+    public void addStudent(Student student) {
+        students.add(student);
+    }
 }
