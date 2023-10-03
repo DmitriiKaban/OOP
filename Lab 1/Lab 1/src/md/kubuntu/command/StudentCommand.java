@@ -2,13 +2,13 @@ package md.kubuntu.command;
 
 import md.kubuntu.Main;
 import md.kubuntu.Menu;
+import md.kubuntu.data.DataManager;
 
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class StudentCommand {
-
 
     public static void start(Scanner scanner) {
 
@@ -20,11 +20,21 @@ public class StudentCommand {
             nextCommand = scanner.nextLine();
             ArrayList<String> parsedCommand = Main.parseCommand(nextCommand);
 
-            if (parsedCommand.get(0).equals("q")) {
-                System.exit(0);
-            } else {
-                System.out.println("Unknown command!");
+            switch (parsedCommand.get(0)) {
+                case "ba":
+                    DataManager.batchAddStudents(parsedCommand);
+                    break;
+                case "b":
+                    break;
+                case "q":
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Unknown command!");
+                    break;
             }
         }
+
+
     }
 }

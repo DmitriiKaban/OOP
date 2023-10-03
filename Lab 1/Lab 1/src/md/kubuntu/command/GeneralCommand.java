@@ -42,13 +42,6 @@ public class GeneralCommand {
                         System.out.println("Incorrect command, try one more time");
                     }
                     break;
-                case "batch":
-                    try {
-                        DataManager.displayFaculties(parsedCommand);
-                    } catch (Exception e) {
-                        System.out.println("Incorrect command, try one more time");
-                    }
-                    break;
                 case "b":
                     break;
                 case "q":

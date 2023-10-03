@@ -52,7 +52,7 @@ public class Menu {
                 Student operations
                 What do you want to do?
 
-                No options available at the moment.
+                ba/<absolute file path> - batch add faculties and students from an existing file
 
                 b - Back
                 q - Quit Program

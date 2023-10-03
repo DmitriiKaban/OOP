@@ -45,55 +45,70 @@ public class FileManager {
     public static ArrayList<Faculty> loadData() {
 
         ArrayList<Faculty> faculties = new ArrayList<>();
-        Faculty currentFaculty = null;
-        Student currentStudent;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
-            String line;
 
-            while ((line = reader.readLine()) != null) {
-                if (line.startsWith("Faculty: ")) {
-
-                    String facultyInfo = line.substring("Faculty: ".length());
-                    String[] facultyData = facultyInfo.split(" \\(");
-                    String facultyName = facultyData[0];
-                    String facultyAbbreviation = facultyData[1].split("\\), Study Field: ")[0];
-                    String studyFieldStr = facultyData[1].split("\\), Study Field: ")[1];
-                    StudyField studyField = StudyField.findStudyField(studyFieldStr);
-
-
-                    currentFaculty = new Faculty(facultyName, facultyAbbreviation, new ArrayList<>(), studyField);
-                    faculties.add(currentFaculty);
-                } else if (line.startsWith("Student: ")) {
-
-                    String studentName = line.substring("Student: ".length());
-                    String email = reader.readLine().substring("Email: ".length());
-                    LocalDate enrollmentDate = LocalDate.parse(reader.readLine().substring("Enrollment Date: ".length()));
-                    LocalDate dateOfBirth = LocalDate.parse(reader.readLine().substring("Date of Birth: ".length()));
-                    boolean graduated = reader.readLine().substring("Graduated: ".length()).equals("Yes");
-
-
-                    currentStudent = new Student(
-                            studentName.split(" ")[0],
-                            studentName.split(" ")[1],
-                            email,
-                            enrollmentDate,
-                            dateOfBirth,
-                            graduated
-                    );
-
-                    if (currentFaculty != null) {
-                        currentFaculty.getStudents().add(currentStudent);
-                    }
-                }
-            }
-
+            readFacultyInfo(faculties, reader);
 
         } catch (IOException e) {
             System.err.println("Error loading data: " + e.getMessage());
         }
 
         return faculties;
+    }
+
+    public static ArrayList<Faculty> loadDataFromFile(String filePath) {
+
+        ArrayList<Faculty> faculties = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+
+            readFacultyInfo(faculties, reader);
+        } catch (IOException e) {
+            System.err.println("Error loading data: " + e.getMessage());
+        }
+
+        return faculties;
+    }
+
+    private static void readFacultyInfo(ArrayList<Faculty> faculties, BufferedReader reader) throws IOException {
+        String line;
+        Student currentStudent;
+        Faculty currentFaculty = null;
+        while ((line = reader.readLine()) != null) {
+            if (line.startsWith("Faculty: ")) {
+
+                String facultyInfo = line.substring("Faculty: ".length());
+                String[] facultyData = facultyInfo.split(" \\(");
+                String facultyName = facultyData[0];
+                String facultyAbbreviation = facultyData[1].split("\\), Study Field: ")[0];
+                String studyFieldStr = facultyData[1].split("\\), Study Field: ")[1];
+                StudyField studyField = StudyField.findStudyField(studyFieldStr);
+
+                currentFaculty = new Faculty(facultyName, facultyAbbreviation, new ArrayList<>(), studyField);
+                faculties.add(currentFaculty);
+            } else if (line.startsWith("Student: ")) {
+
+                String studentName = line.substring("Student: ".length());
+                String email = reader.readLine().substring("Email: ".length());
+                LocalDate enrollmentDate = LocalDate.parse(reader.readLine().substring("Enrollment Date: ".length()));
+                LocalDate dateOfBirth = LocalDate.parse(reader.readLine().substring("Date of Birth: ".length()));
+                boolean graduated = reader.readLine().substring("Graduated: ".length()).equals("Yes");
+
+                currentStudent = new Student(
+                        studentName.split(" ")[0],
+                        studentName.split(" ")[1],
+                        email,
+                        enrollmentDate,
+                        dateOfBirth,
+                        graduated
+                );
+
+                if (currentFaculty != null) {
+                    currentFaculty.getStudents().add(currentStudent);
+                }
+            }
+        }
     }
 
 }

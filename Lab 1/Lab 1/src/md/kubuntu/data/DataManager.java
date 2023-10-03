@@ -8,10 +8,13 @@ import md.kubuntu.model.StudyField;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 public class DataManager {
 
-    private static final ArrayList<Faculty> faculties = FileManager.loadData();
+    private static ArrayList<Faculty> faculties = FileManager.loadData();
     private static final Logger logger = new Logger();
 
     public static void createFaculty(ArrayList<String> parsedCommand) {
@@ -22,10 +25,10 @@ public class DataManager {
         }
 
         StudyField studyField = StudyField.findStudyField(parsedCommand.get(3));
-        if (studyField == null){
+        if (studyField == null) {
             System.out.println(
                     "No such study field: " + parsedCommand.get(3) + " try one more time\n" +
-                    "Select from the following list: MECHANICAL_ENGINEERING, SOFTWARE_ENGINEERING, FOOD_TECHNOLOGY, URBANISM_ARCHITECTURE, VETERINARY_MEDICINE"
+                            "Select from the following list: MECHANICAL_ENGINEERING, SOFTWARE_ENGINEERING, FOOD_TECHNOLOGY, URBANISM_ARCHITECTURE, VETERINARY_MEDICINE"
             );
             logger.log("Error while creating new faculty: no such study field: " + parsedCommand.get(3));
             return;
@@ -91,7 +94,7 @@ public class DataManager {
         if (parsedCommand.size() == 2) {
             StudyField studyField = StudyField.findStudyField(parsedCommand.get(1));
 
-            if (studyField == null){
+            if (studyField == null) {
                 System.out.println("No such study field: " + parsedCommand.get(1));
                 return;
             }
@@ -312,7 +315,38 @@ public class DataManager {
         System.out.println("Student doesn't belong to faculty");
     }
 
-    public ArrayList<Faculty> getFaculties(){
-        return this.faculties;
+    public static void batchAddStudents(ArrayList<String> parsedCommand) {
+        ArrayList<Faculty> newFaculties = FileManager.loadDataFromFile(parsedCommand.get(1));
+
+        Iterator<Faculty> iterator = newFaculties.iterator();
+
+        while (iterator.hasNext()) {
+            Faculty newFaculty = iterator.next();
+
+            if (faculties.contains(newFaculty)) {
+                ArrayList<Student> newStudents = new ArrayList<>();
+
+                for (Student student: newFaculty.getStudents()) {
+                    if (getStudentByEmail(student.getEmail()) == null)
+                        newStudents.add(student);
+                }
+
+                Faculty existingFaculty = getFacultyByName(newFaculty.getName());
+                existingFaculty.addStudents(newStudents);
+            } else {
+                ArrayList<Student> studentToRemove = new ArrayList<>();
+
+                for (Student student: newFaculty.getStudents()) {
+                    if (getStudentByEmail(student.getEmail()) != null)
+                        studentToRemove.add(student);
+                }
+
+                newFaculty.getStudents().removeAll(studentToRemove);
+                faculties.add(newFaculty);
+            }
+        }
+
+        FileManager.saveData(faculties);
+        logger.log("Batch update performed");
     }
 }
