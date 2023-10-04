@@ -8,9 +8,7 @@ import md.kubuntu.model.StudyField;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 
 public class DataManager {
 
@@ -327,8 +325,11 @@ public class DataManager {
                 ArrayList<Student> newStudents = new ArrayList<>();
 
                 for (Student student: newFaculty.getStudents()) {
-                    if (getStudentByEmail(student.getEmail()) == null)
+                    if (getStudentByEmail(student.getEmail()) == null) {
                         newStudents.add(student);
+                        logger.log("Add new student using batch: " + newStudents);
+                        System.out.println("Add new student using batch: " + newStudents);
+                    }
                 }
 
                 Faculty existingFaculty = getFacultyByName(newFaculty.getName());
@@ -342,11 +343,18 @@ public class DataManager {
                 }
 
                 newFaculty.getStudents().removeAll(studentToRemove);
+                logger.log("Add new faculty using batch: " + newFaculty);
+                System.out.println("Add new faculty using batch: " + newFaculty);
+                for (Student student: newFaculty.getStudents()) {
+                    logger.log("Add new student using batch: " + student);
+                    System.out.println("Add new student using batch: " + student);
+                }
                 faculties.add(newFaculty);
             }
         }
 
         FileManager.saveData(faculties);
+        System.out.println("Batch update performed successfully!");
         logger.log("Batch update performed");
     }
 }

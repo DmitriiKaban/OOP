@@ -13,6 +13,9 @@ public class Main {
 
     public static void main(String[] args) {
 
+        final Logger logger = new Logger();
+        logger.log("App started");
+
         Scanner scanner = new Scanner(System.in);
         String nextCommand = "";
 
