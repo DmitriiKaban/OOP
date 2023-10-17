@@ -1,4 +1,9 @@
 package dima.document;
 
-public class PythonFile {
+import java.io.IOException;
+
+public class PythonFile extends Document{
+    public PythonFile(String fileName) throws IOException {
+        super(fileName);
+    }
 }

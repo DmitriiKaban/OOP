@@ -1,4 +1,9 @@
 package dima.document;
 
-public class JavaFile {
+import java.io.IOException;
+
+public class JavaFile extends Document{
+    public JavaFile(String fileName) throws IOException {
+        super(fileName);
+    }
 }
