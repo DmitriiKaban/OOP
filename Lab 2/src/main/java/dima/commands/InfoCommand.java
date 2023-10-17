@@ -2,6 +2,8 @@ package dima.commands;
 
 import dima.document.Document;
 import dima.document.ImageFile;
+import dima.document.JavaFile;
+import dima.document.PythonFile;
 
 import javax.print.Doc;
 import java.io.IOException;
