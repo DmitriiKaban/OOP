@@ -1,7 +1,7 @@
 package md.kubuntu;
 
 // MenuMessages
-public class Menu {
+public class MenuMessages {
 
     public static void printMainCommands() {
         System.out.println("""
