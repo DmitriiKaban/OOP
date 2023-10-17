@@ -12,7 +12,7 @@ public class ImageFile extends BasicFile {
     }
 
     public String getImageSize() throws IOException {
-        File imageFile = new File(super.folderPath + super.fileName);
+        File imageFile = new File(folderPath + super.fileName);
         BufferedImage image = ImageIO.read(imageFile);
 
         int width = image.getWidth();
