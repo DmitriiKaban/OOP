@@ -1,9 +1,6 @@
 package dima.commands;
 
-import dima.document.Document;
-import dima.document.ImageFile;
-import dima.document.JavaFile;
-import dima.document.PythonFile;
+import dima.document.*;
 
 import javax.print.Doc;
 import java.io.IOException;
@@ -35,7 +32,7 @@ public class InfoCommand implements Command {
                     file = new PythonFile(fileName);
                     file.printBasicInfo();
                 } catch (IOException e) {
-                    System.out.println("Incorrect image name!");
+                    System.out.println("Incorrect file name!");
                 }
                 System.out.println("Python");
                 break;
@@ -44,12 +41,25 @@ public class InfoCommand implements Command {
                     file = new JavaFile(fileName);
                     file.printBasicInfo();
                 } catch (IOException e) {
-                    System.out.println("Incorrect image name!");
+                    System.out.println("Incorrect file name!");
                 }
                 System.out.println("Java");
                 break;
+            case "txt":
+                try {
+                    file = new TextFile(fileName);
+                    file.printBasicInfo();
+                } catch (IOException e) {
+                    System.out.println("Incorrect file name!");
+                }
+                break;
             default:
-                System.out.println("Another type of file");
+                try {
+                    file = new UnknownFile(fileName);
+                    file.printBasicInfo();
+                } catch (IOException e) {
+                    System.out.println("Incorrect file name!");
+                }
                 break;
         }
     }

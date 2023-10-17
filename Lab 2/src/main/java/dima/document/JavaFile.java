@@ -3,16 +3,13 @@ package dima.document;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class JavaFile extends Document{
     public JavaFile(String fileName) throws IOException {
         super(fileName);
     }
 
-    public int getLineCount() throws IOException {
+    public int getLineCount() {
         int lineCount = 0;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(folderPath + "/" + super.fileName))) {
