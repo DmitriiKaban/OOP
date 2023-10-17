@@ -2,7 +2,7 @@ package md.kubuntu.command;
 
 import md.kubuntu.data.DataManager;
 import md.kubuntu.Main;
-import md.kubuntu.Menu;
+import md.kubuntu.MenuMessages;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -16,7 +16,7 @@ public class FacultyCommand {
 
         while (!Objects.equals(nextCommand, "b")) {
 
-            Menu.printFacultyCommands();
+            MenuMessages.printFacultyCommands();
             nextCommand = scanner.nextLine();
             ArrayList<String> parsedCommand = Main.parseCommand(nextCommand);
 
