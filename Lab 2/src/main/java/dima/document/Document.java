@@ -7,13 +7,13 @@ import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
 
-public abstract class BasicFile {
+public abstract class Document {
     public static final String folderPath = "C:/Users/Valeria/IdeaProjects/OOP/Lab 2/src/main/resources/FolderManagedByDimaGIT";
     public String fileName;
     public FileTime creationDate;
     public FileTime updateDate;
 
-    public BasicFile(String fileName) throws IOException {
+    public Document(String fileName) throws IOException {
         this.fileName = fileName;
         this.creationDate = getCreationTime();
         this.updateDate = getLastUpdateTime();
