@@ -1,4 +1,4 @@
-package dima;
+package dima.commands;
 
 public class StatusCommand implements Command {
     @Override

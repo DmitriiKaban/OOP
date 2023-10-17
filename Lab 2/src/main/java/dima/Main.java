@@ -1,5 +1,10 @@
 package dima;
 
+import dima.commands.Command;
+import dima.commands.CommitCommand;
+import dima.commands.InfoCommand;
+import dima.commands.StatusCommand;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

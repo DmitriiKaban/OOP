@@ -1,4 +1,4 @@
-package dima;
+package dima.commands;
 
 import java.util.ArrayList;
 
