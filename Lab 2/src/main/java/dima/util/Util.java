@@ -4,17 +4,14 @@ import dima.document.Document;
 import dima.entities.Commit;
 
 import java.io.*;
-import java.nio.file.attribute.FileTime;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Util {
     public static void makeCommit() {
-        Commit commit = new Commit(LocalDateTime.now(), getFiles());
+        Commit commit = new Commit(LocalDateTime.now(), getFileNames());
         saveCommit(commit);
     }
 
@@ -62,7 +59,7 @@ public class Util {
         return latestCommit;
     }
 
-    public static ArrayList<String> getFiles() {
+    public static ArrayList<String> getFileNames() {
 
         ArrayList<String> string = new ArrayList<>();
 
@@ -82,4 +79,15 @@ public class Util {
 
         return string;
     }
+    public static ArrayList<File> getFiles() {
+        File directory = new File(Document.folderPath);
+        ArrayList<File> files = new ArrayList<>();
+        if (directory.isDirectory()) {
+             files = new ArrayList<>(List.of(directory.listFiles()));
+        }
+
+        return files;
+    }
+
+
 }

@@ -2,7 +2,6 @@ package dima.commands;
 
 import dima.document.*;
 
-import javax.print.Doc;
 import java.io.IOException;
 
 public class InfoCommand implements Command {

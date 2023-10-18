@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class Commit {
 
-    private LocalDateTime commitTime;
-    private ArrayList<String> files;
+    private final LocalDateTime commitTime;
+    private final ArrayList<String> files;
 
     public Commit(LocalDateTime commitTime, ArrayList<String> files) {
         this.commitTime = commitTime;
@@ -23,7 +23,7 @@ public class Commit {
 
     @Override
     public String toString() {
-        return commitTime + "\n" + printFiles();
+        return "Created snapshot at: " + commitTime + "\n" + printFiles();
     }
 
     private String printFiles() {
