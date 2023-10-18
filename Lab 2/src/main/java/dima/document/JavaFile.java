@@ -29,7 +29,8 @@ public class JavaFile extends Document{
             String line;
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
-                line.replace("(", " ").replace(")", " ");
+                line = line.replace("(", " ");
+                line = line.replace(")", " ");
                 String[] splittedLine = line.split(" ");
                 if (!line.startsWith("//")) {
                     if ((splittedLine[0].equals("public") || splittedLine[0].equals("private") || splittedLine[0].equals("protected")) && (splittedLine[1].equals("class") || splittedLine[1].equals("interface") || (splittedLine[1].equals("abstract") && splittedLine[2].equals("class")))) {
@@ -64,16 +65,12 @@ public class JavaFile extends Document{
         return methodCount;
     }
 
-    public void printBasicInfo() throws IOException {
-        StringBuilder string = new StringBuilder();
-        string.append("File name: ").append(getFileName()).append("\n");
-        string.append("File extension: ").append(getFileExtension()).append("\n");
-        string.append("File created at ").append(getCreationTime()).append("\n");
-        string.append("File updated at ").append(getLastUpdateTime()).append("\n");
+    public StringBuilder getBasicInfo() throws IOException {
+        StringBuilder string = super.getBasicInfo();
         string.append("Number of lines: ").append(getLineCount()).append("\n");
         string.append("Number of classes: ").append(getClassCount()).append("\n");
         string.append("Number of methods: ").append(getMethodCount()).append("\n");
 
-        System.out.println(string);
+        return string;
     }
 }

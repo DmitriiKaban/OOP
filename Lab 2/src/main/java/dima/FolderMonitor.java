@@ -3,9 +3,6 @@ package dima;
 import dima.document.Document;
 
 import java.io.File;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -43,21 +40,11 @@ public class FolderMonitor {
             for (String file : updatedFiles) {
                 File currentFile = new File(FOLDER_PATH, file);
                 long currentTimeMillis = System.currentTimeMillis();
-//
-//                long lastModifiedMillis = file.lastModified();
-//                Instant instant = Instant.ofEpochMilli(lastModifiedMillis);
-//
-//                LocalDateTime newFileDateTime = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
-//
-//                if (newFileDateTime.isAfter(lastCommitTime)) {
-//                    modifiedFiles.add(f);
-//                }
 
                 if (currentFile.exists()
                         && currentTimeMillis - currentFile.lastModified() <= 5000) {
                     System.out.println("File modified: " + file);
                 }
-                System.out.println(currentTimeMillis - currentFile.lastModified());
             }
 
             // Update the current file list
