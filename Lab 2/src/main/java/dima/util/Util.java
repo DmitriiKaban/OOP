@@ -3,20 +3,18 @@ package dima.util;
 import dima.document.Document;
 import dima.entities.Commit;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.attribute.FileTime;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Util {
     public static void makeCommit() {
-        Commit commit = new Commit(localDateTimeToFileTime(LocalDateTime.now()), getFiles());
+        Commit commit = new Commit(LocalDateTime.now(), getFiles());
         saveCommit(commit);
     }
 
@@ -33,14 +31,35 @@ public class Util {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
-    public static FileTime localDateTimeToFileTime(LocalDateTime localDateTime) {
+    public static Commit getLatestCommit() {
+        Commit latestCommit = null;
 
-        Instant instant = localDateTime.atZone(ZoneId.systemDefault()).toInstant();
+        try (BufferedReader reader = new BufferedReader(new FileReader("commit.txt"))) {
+            String line;
+            ArrayList<String> files = new ArrayList<>();
+            LocalDateTime commitTime = null;
 
-        return FileTime.from(instant);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS");
+
+            while ((line = reader.readLine()) != null) {
+                if (commitTime == null) {
+                    // Parse the commit time with the formatter
+                    commitTime = LocalDateTime.parse(line, formatter);
+                } else {
+                    files.add(line);
+                }
+            }
+
+            if (commitTime != null) {
+                latestCommit = new Commit(commitTime, files);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return latestCommit;
     }
 
     public static ArrayList<String> getFiles() {

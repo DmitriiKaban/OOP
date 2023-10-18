@@ -1,19 +1,19 @@
 package dima.entities;
 
-import java.nio.file.attribute.FileTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Commit {
 
-    private FileTime commitTime;
+    private LocalDateTime commitTime;
     private ArrayList<String> files;
 
-    public Commit(FileTime commitTime, ArrayList<String> files) {
+    public Commit(LocalDateTime commitTime, ArrayList<String> files) {
         this.commitTime = commitTime;
         this.files = files;
     }
 
-    public FileTime getCommitTime() {
+    public LocalDateTime getCommitTime() {
         return commitTime;
     }
 
@@ -23,7 +23,7 @@ public class Commit {
 
     @Override
     public String toString() {
-        return commitTime + printFiles();
+        return commitTime + "\n" + printFiles();
     }
 
     private String printFiles() {

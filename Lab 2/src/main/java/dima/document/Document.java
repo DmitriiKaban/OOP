@@ -5,13 +5,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.nio.file.attribute.FileTime;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 public abstract class Document {
     public static final String folderPath = "C:/Users/Valeria/IdeaProjects/OOP/Lab 2/src/main/resources/FolderManagedByDimaGIT";
     public String fileName;
-    public FileTime creationDate;
-    public FileTime updateDate;
+    public LocalDateTime creationDate;
+    public LocalDateTime updateDate;
 
     public Document(String fileName) throws IOException {
         this.fileName = fileName;
@@ -27,14 +28,14 @@ public abstract class Document {
         return fileName.substring(fileName.indexOf(".") + 1);
     }
 
-    public FileTime getCreationTime() throws IOException {
+    public LocalDateTime getCreationTime() throws IOException {
         BasicFileAttributes attributes = Files.readAttributes(getFolderPath(), BasicFileAttributes.class);
-        return attributes.creationTime();
+        return LocalDateTime.ofInstant(attributes.creationTime().toInstant(), ZoneId.systemDefault());
     }
 
-    public FileTime getLastUpdateTime() throws IOException {
+    public LocalDateTime getLastUpdateTime() throws IOException {
         BasicFileAttributes attributes = Files.readAttributes(getFolderPath(), BasicFileAttributes.class);
-        return attributes.lastModifiedTime();
+        return LocalDateTime.ofInstant(attributes.lastModifiedTime().toInstant(), ZoneId.systemDefault());
     }
 
     public Path getFolderPath() {
@@ -42,7 +43,6 @@ public abstract class Document {
     }
 
     public void printBasicInfo() throws IOException {
-        System.out.println("Unknown file");
         System.out.println("File name: " + getFileName()
             + "\nFile extension: " + getFileExtension()
             + "\nDate created: " + getCreationTime()

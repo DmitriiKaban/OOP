@@ -54,9 +54,7 @@ public class InfoCommand implements Command {
                 break;
             default:
                 try {
-                    System.out.println("Hello");
                     file = new UnknownFile(fileName);
-                    System.out.println("Hello");
                     file.printBasicInfo();
                 } catch (IOException e) {
                     System.out.println("Incorrect file name!");
