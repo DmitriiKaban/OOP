@@ -1,9 +1,6 @@
 package dima.document;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -54,10 +51,12 @@ public class TextFile extends Document{
         return charCount;
     }
 
-    public void printBasicInfo() throws IOException {
-        super.printBasicInfo();
-        System.out.println("Number of lines: " + getLineCount());;
-        System.out.println("Number of words: " + getWordCount());;
-        System.out.println("Number of characters: " + getCharacterCount());;
+    public StringBuilder getBasicInfo() throws IOException {
+        StringBuilder string = super.getBasicInfo();
+        string.append("Number of lines: ").append(getLineCount());
+        string.append("Number of words: ").append(getWordCount());
+        string.append("Number of characters: ").append(getCharacterCount());
+
+        return string;
     }
 }

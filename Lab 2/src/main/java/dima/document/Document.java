@@ -42,11 +42,12 @@ public abstract class Document {
         return Paths.get(folderPath + "/" + this.fileName);
     }
 
-    public void printBasicInfo() throws IOException {
-        System.out.println("File name: " + getFileName()
-            + "\nFile extension: " + getFileExtension()
-            + "\nDate created: " + getCreationTime()
-            + "\nDate last update: " + getLastUpdateTime());
+    public StringBuilder getBasicInfo() throws IOException {
+
+        return new StringBuilder("File name: " + getFileName()
+                + "\nFile extension: " + getFileExtension()
+                + "\nDate created: " + getCreationTime()
+                + "\nDate last update: " + getLastUpdateTime());
     }
 
 }

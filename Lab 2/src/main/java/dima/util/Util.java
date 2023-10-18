@@ -42,7 +42,6 @@ public class Util {
 
             while ((line = reader.readLine()) != null) {
                 if (commitTime == null) {
-                    // Parse the commit time with the formatter
                     commitTime = LocalDateTime.parse(line, formatter);
                 } else {
                     files.add(line);

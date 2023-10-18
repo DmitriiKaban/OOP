@@ -17,6 +17,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String nextCommand = "";
 
+        FolderMonitor fileMonitor = new FolderMonitor();
+        fileMonitor.startFileMonitoring();
+
         while (!Objects.equals(nextCommand, "q")) {
             MenuMessages.printMainCommands();
             nextCommand = scanner.nextLine();

@@ -21,7 +21,7 @@ public class InfoCommand implements Command {
             case "jpg":
                 try {
                     file = new ImageFile(fileName);
-                    file.printBasicInfo();
+                    file.getBasicInfo();
                 } catch (IOException e) {
                     System.out.println("Incorrect image name!");
                 }
@@ -29,7 +29,7 @@ public class InfoCommand implements Command {
             case "py":
                 try {
                     file = new PythonFile(fileName);
-                    file.printBasicInfo();
+                    file.getBasicInfo();
                 } catch (IOException e) {
                     System.out.println("Incorrect file name!");
                 }
@@ -37,7 +37,7 @@ public class InfoCommand implements Command {
             case "java":
                 try {
                     file = new JavaFile(fileName);
-                    file.printBasicInfo();
+                    file.getBasicInfo();
                 } catch (IOException e) {
                     System.out.println("Incorrect file name!");
                 }
@@ -46,7 +46,7 @@ public class InfoCommand implements Command {
             case "txt":
                 try {
                     file = new TextFile(fileName);
-                    file.printBasicInfo();
+                    file.getBasicInfo();
                 } catch (IOException e) {
                     System.out.println("Incorrect file name!");
                 }
@@ -54,7 +54,7 @@ public class InfoCommand implements Command {
             default:
                 try {
                     file = new UnknownFile(fileName);
-                    file.printBasicInfo();
+                    file.getBasicInfo();
                 } catch (IOException e) {
                     System.out.println("Incorrect file name!");
                 }

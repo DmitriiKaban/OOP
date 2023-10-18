@@ -20,9 +20,8 @@ public class ImageFile extends Document {
         return width + "x" + height + "px";
     }
 
-    public void printBasicInfo() throws IOException {
-        super.printBasicInfo();
-        System.out.println(getImageSize());;
+    public StringBuilder getBasicInfo() throws IOException {
+        return super.getBasicInfo().append(getImageSize());
     }
 
 }
