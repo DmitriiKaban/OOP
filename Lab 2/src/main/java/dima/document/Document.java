@@ -27,21 +27,22 @@ public abstract class Document {
         return fileName.substring(fileName.indexOf(".") + 1);
     }
 
-    public static FileTime getCreationTime() throws IOException {
+    public FileTime getCreationTime() throws IOException {
         BasicFileAttributes attributes = Files.readAttributes(getFolderPath(), BasicFileAttributes.class);
         return attributes.creationTime();
     }
 
-    public static FileTime getLastUpdateTime() throws IOException {
+    public FileTime getLastUpdateTime() throws IOException {
         BasicFileAttributes attributes = Files.readAttributes(getFolderPath(), BasicFileAttributes.class);
         return attributes.lastModifiedTime();
     }
 
-    public static Path getFolderPath() {
-        return Paths.get(folderPath);
+    public Path getFolderPath() {
+        return Paths.get(folderPath + "/" + this.fileName);
     }
 
     public void printBasicInfo() throws IOException {
+        System.out.println("Unknown file");
         System.out.println("File name: " + getFileName()
             + "\nFile extension: " + getFileExtension()
             + "\nDate created: " + getCreationTime()
