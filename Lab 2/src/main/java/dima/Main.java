@@ -45,6 +45,7 @@ public class Main {
                     break;
                 case "q":
                     System.exit(0);
+
                     break;
                 default:
                     System.out.println("Unknown command!");

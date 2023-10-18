@@ -22,20 +22,25 @@ public class TextFile extends Document{
     }
 
     public int getWordCount() throws IOException {
-
         BufferedReader reader = new BufferedReader(new FileReader(folderPath + "/" + super.fileName));
         int wordCount = 0;
 
         String line;
         while ((line = reader.readLine()) != null) {
-            String[] words = line.split("\\s+"); // Split by one or more spaces
-            wordCount += words.length;
+            String[] words = line.split("\\W+"); // Split by non-word characters
+            for (String word : words) {
+                if (!word.isEmpty()) {
+                    wordCount++;
+                }
+            }
         }
 
         reader.close();
 
         return wordCount;
     }
+
+
 
     public int getCharacterCount() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(folderPath + "/" + super.fileName));
@@ -53,9 +58,9 @@ public class TextFile extends Document{
 
     public StringBuilder getBasicInfo() throws IOException {
         StringBuilder string = super.getBasicInfo();
-        string.append("Number of lines: ").append(getLineCount());
-        string.append("Number of words: ").append(getWordCount());
-        string.append("Number of characters: ").append(getCharacterCount());
+        string.append("\nNumber of lines: ").append(getLineCount());
+        string.append("\nNumber of words: ").append(getWordCount());
+        string.append("\nNumber of characters: ").append(getCharacterCount());
 
         return string;
     }
