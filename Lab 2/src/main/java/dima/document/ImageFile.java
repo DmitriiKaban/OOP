@@ -21,7 +21,7 @@ public class ImageFile extends Document {
     }
 
     public StringBuilder getBasicInfo() throws IOException {
-        return super.getBasicInfo().append(getImageSize());
+        return super.getBasicInfo().append("\n").append(getImageSize());
     }
 
 }

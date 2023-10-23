@@ -34,7 +34,6 @@ public class JavaFile extends Document{
                 String[] splittedLine = line.split(" ");
                 if (!line.startsWith("//")) {
                     if ((splittedLine[0].equals("public") || splittedLine[0].equals("private") || splittedLine[0].equals("protected")) && (splittedLine[1].equals("class") || splittedLine[1].equals("interface") || (splittedLine[1].equals("abstract") && splittedLine[2].equals("class")))) {
-//                        System.out.println(line);
                         classCount++;
                     }
                 }
@@ -55,7 +54,6 @@ public class JavaFile extends Document{
                     if (splittedLine.length >= 3 &&
                             (splittedLine[0].equals("public") || splittedLine[0].equals("private") || splittedLine[0].equals("protected")) &&
                             !splittedLine[1].equals("class") && !splittedLine[1].equals("interface") && !splittedLine[1].equals("abstract") && line.contains("(")) {
-//                        System.out.println(line);
                         methodCount++;
                     }
                 }

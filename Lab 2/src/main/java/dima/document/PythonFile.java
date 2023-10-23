@@ -13,7 +13,7 @@ public class PythonFile extends Document{
     public int getLineCount() {
         int lineCount = 0;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(folderPath))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(String.valueOf(getFolderPath())))) {
             while (reader.readLine() != null) {
                 lineCount++;
             }
@@ -25,7 +25,7 @@ public class PythonFile extends Document{
     }
 
     public int getClassCount() throws IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(folderPath))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(String.valueOf(getFolderPath())))) {
             int classCount = 0;
             String line;
 
@@ -45,7 +45,7 @@ public class PythonFile extends Document{
     public int getMethodCount() throws IOException {
         int methodCount = 0;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(folderPath))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(String.valueOf(getFolderPath())))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
