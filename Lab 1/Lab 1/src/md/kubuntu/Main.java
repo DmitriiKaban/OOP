@@ -20,7 +20,7 @@ public class Main {
         String nextCommand = "";
 
         while (!Objects.equals(nextCommand, "q")) {
-            Menu.printMainCommands();
+            MenuMessages.printMainCommands();
             nextCommand = scanner.nextLine();
             ArrayList<String> parsedCommand = parseCommand(nextCommand);
 

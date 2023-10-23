@@ -62,7 +62,7 @@ public class PythonFile extends Document{
 
     public StringBuilder getBasicInfo() throws IOException {
         StringBuilder string = super.getBasicInfo();
-        string.append("Number of lines: ").append(getLineCount()).append("\n");
+        string.append("\nNumber of lines: ").append(getLineCount()).append("\n");
         string.append("Number of classes: ").append(getClassCount()).append("\n");
         string.append("Number of methods: ").append(getMethodCount()).append("\n");
 
