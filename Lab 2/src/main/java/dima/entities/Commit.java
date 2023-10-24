@@ -1,6 +1,10 @@
 package dima.entities;
 
+import dima.util.Util;
+
+import java.io.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Commit {
@@ -32,5 +36,52 @@ public class Commit {
             string.append(s).append("\n");
 
         return string.toString();
+    }
+
+
+    public static void makeCommit() {
+
+        Commit commit = new Commit(LocalDateTime.now(), Util.getFileNames());
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("commit.txt"))) {
+
+            writer.write(commit.getCommitTime().toString());
+            writer.newLine();
+
+            for (String file : commit.getFiles()) {
+                writer.write(file);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Commit getLatestCommit() {
+        Commit latestCommit = null;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("commit.txt"))) {
+            String line;
+            ArrayList<String> files = new ArrayList<>();
+            LocalDateTime commitTime = null;
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS");
+
+            while ((line = reader.readLine()) != null) {
+                if (commitTime == null) {
+                    commitTime = LocalDateTime.parse(line, formatter);
+                } else {
+                    files.add(line);
+                }
+            }
+
+            if (commitTime != null) {
+                latestCommit = new Commit(commitTime, files);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return latestCommit;
     }
 }

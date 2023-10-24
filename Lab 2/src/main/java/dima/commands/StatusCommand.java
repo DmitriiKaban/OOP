@@ -15,7 +15,7 @@ public class StatusCommand implements Command {
     @Override
     public void invoke() {
 
-        Commit lastCommit = Util.getLatestCommit();
+        Commit lastCommit = Commit.getLatestCommit();
         LocalDateTime lastCommitTime = lastCommit.getCommitTime();
         ArrayList<String> lastCommitFiles = lastCommit.getFiles();
 
