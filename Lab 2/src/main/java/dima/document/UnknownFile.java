@@ -1,6 +1,5 @@
 package dima.document;
 
-
 import java.io.IOException;
 
 public class UnknownFile extends Document {

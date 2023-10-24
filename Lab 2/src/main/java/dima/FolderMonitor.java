@@ -22,21 +22,18 @@ public class FolderMonitor {
         executorService.scheduleAtFixedRate(() -> {
             Set<String> updatedFiles = listFiles();
 
-            // Check for added files
             for (String file : updatedFiles) {
                 if (!currentFiles.contains(file)) {
                     System.out.println("File added: " + file);
                 }
             }
 
-            // Check for deleted files
             for (String file : currentFiles) {
                 if (!updatedFiles.contains(file)) {
                     System.out.println("File deleted: " + file);
                 }
             }
 
-            // Check for modified files (compare file modification times)
             for (String file : updatedFiles) {
                 File currentFile = new File(FOLDER_PATH, file);
                 long currentTimeMillis = System.currentTimeMillis();
@@ -47,7 +44,6 @@ public class FolderMonitor {
                 }
             }
 
-            // Update the current file list
             currentFiles = updatedFiles;
         }, 5, 5, TimeUnit.SECONDS);
     }

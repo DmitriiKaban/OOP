@@ -1,11 +1,11 @@
 package dima.commands;
 
-import dima.util.Util;
+import dima.entities.Commit;
 
 public class CommitCommand implements Command {
     @Override
     public void invoke() {
-        Util.makeCommit();
+        Commit.makeCommit();
         System.out.println("Commit performed!");
     }
 }
