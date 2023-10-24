@@ -48,24 +48,11 @@ public class StatusCommand implements Command {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Last commit made at: ").append(lastCommitTime).append("\nFrom that time there are the following changes:\n");
-        if (!noChangeFiles.isEmpty()) {
-            stringBuilder.append("Files without changes:\n");
-            for (File file: noChangeFiles) {
-                stringBuilder.append(file.getName()).append("\n");
-            }
-        }
-        if (!modifiedFiles.isEmpty()) {
-            stringBuilder.append("Modified files:\n");
-            for (File file: modifiedFiles) {
-                stringBuilder.append(file.getName()).append("\n");
-            }
-        }
-        if (!createdFiles.isEmpty()) {
-            stringBuilder.append("Created files:\n");
-            for (File file: createdFiles) {
-                stringBuilder.append(file.getName()).append("\n");
-            }
-        }
+
+        addFileInfo(noChangeFiles, stringBuilder, "No changes");
+        addFileInfo(modifiedFiles, stringBuilder, "Modified");
+        addFileInfo(createdFiles, stringBuilder, "Created");
+
         if (!deletedFiles.isEmpty()) {
             stringBuilder.append("Deleted files:\n");
             for (String file: deletedFiles) {
@@ -74,5 +61,16 @@ public class StatusCommand implements Command {
         }
 
         System.out.println(stringBuilder);
+    }
+
+    public void addFileInfo(Set<File> files, StringBuilder stringBuilder, String category) {
+
+        if (!files.isEmpty()) {
+            stringBuilder.append(category).append(" files:\n");
+            for (File file: files) {
+                stringBuilder.append(file.getName()).append("\n");
+            }
+        }
+
     }
 }
