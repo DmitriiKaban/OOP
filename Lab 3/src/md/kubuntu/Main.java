@@ -13,7 +13,7 @@ public class Main {
 
     static public void main(String[] args) {
 
-        IQueue queue = new QueueLinkedList();
+        IQueue<Integer> queue = new QueueLinkedList();
         testQueue(queue);
         queue = new QueueArrayDown();
         testQueue(queue);
@@ -21,7 +21,7 @@ public class Main {
         testQueue(queue);
 
 
-        IStack stack = new StackArrayDown();
+        IStack<Integer> stack = new StackArrayDown();
         testStack(stack);
         stack = new StackArrayUp();
         testStack(stack);
@@ -30,7 +30,7 @@ public class Main {
 
     }
 
-    private static void testStack(IStack stack) {
+    private static void testStack(IStack<Integer> stack) {
 
         stack.push(1);
         stack.push(2);
@@ -44,7 +44,7 @@ public class Main {
         System.out.println("==============");
     }
 
-    private static void testQueue(IQueue queue) {
+    private static void testQueue(IQueue<Integer> queue) {
         queue.add(1);
         queue.add(2);
         queue.peek();

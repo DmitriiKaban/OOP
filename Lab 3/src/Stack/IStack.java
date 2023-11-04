@@ -1,7 +1,7 @@
 package Stack;
 
-public interface IStack {
-    void push(Object element);
-    void pop();
-    void peek();
+public interface IStack<T> {
+    void push(T element);
+    T pop();
+    T peek();
 }
