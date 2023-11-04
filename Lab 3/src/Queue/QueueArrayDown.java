@@ -9,7 +9,7 @@ public class QueueArrayDown<T> implements IQueue<T>{
 
     public QueueArrayDown(Integer capacity) {
         this.capacity = capacity;
-        elements = (T[])new Object[capacity];
+        elements = (T[]) new Object[capacity];
         free = capacity - 1;
         head = capacity - 1;
     }
@@ -25,8 +25,9 @@ public class QueueArrayDown<T> implements IQueue<T>{
     public void add(T element) {
         elements[free--] = element;
 
-        if (free == 0)
-            free = capacity - 1;
+        if (free == 0) {
+            System.out.println("Queue is full!");
+        }
     }
 
     @Override
@@ -36,9 +37,10 @@ public class QueueArrayDown<T> implements IQueue<T>{
 
     @Override
     public T poll() {
-        T returnT = elements[head--];
-        if (head == 0)
-            head = capacity - 1;
-        return returnT;
+        if (head == 0) {
+            System.out.println("Queue is empty!");
+            return null;
+        }
+        return elements[head--];
     }
 }
