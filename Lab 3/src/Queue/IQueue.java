@@ -1,7 +1,7 @@
 package Queue;
 
-public interface IQueue {
-    void add(Object element);
-    void peek();
-    void poll();
+public interface IQueue<T> {
+    void add(T element);
+    T peek();
+    T poll();
 }

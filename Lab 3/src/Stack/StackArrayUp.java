@@ -1,36 +1,34 @@
 package Stack;
 
-public class StackArrayUp implements IStack {
-    private final Integer[] elements;
+public class StackArrayUp<T> implements IStack<T> {
+    private final T[] elements;
     private Integer top = -1;
     private final Integer capacity;
 
     public StackArrayUp(Integer capacity) {
         this.capacity = capacity;
-        elements = new Integer[capacity];
+        elements = (T[])new Object[capacity];
     }
 
     public StackArrayUp() {
         this.capacity = 5;
-        elements = new Integer[capacity];
+        elements = (T[])new Object[capacity];
     }
 
     @Override
     public void push(Object element) {
         if (top < capacity) {
-            elements[++top] = (Integer) element;
+            elements[++top] = (T) element;
         }
     }
 
     @Override
-    public void pop() {
-        if (top >= 0) {
-            System.out.println(elements[top--]);
-        }
+    public T pop() {
+        return top >= 0 ? elements[top--] : null;
     }
 
     @Override
-    public void peek() {
-        System.out.println(elements[top]);
+    public T peek() {
+        return elements[top];
     }
 }

@@ -1,13 +1,13 @@
 package Stack;
 
-public class StackArrayDown implements IStack{
-    private final Integer[] elements;
+public class StackArrayDown<T> implements IStack<T>{
+    private final T[] elements;
     private Integer free;
     private final Integer capacity;
 
     public StackArrayDown(Integer capacity) {
         this.capacity = capacity;
-        elements = new Integer[capacity];
+        elements = (T[])new Object[capacity];
         free = capacity;
 
         System.out.println(free.hashCode());
@@ -16,26 +16,28 @@ public class StackArrayDown implements IStack{
 
     public StackArrayDown() {
         this.capacity = 5;
-        elements = new Integer[capacity];
+        elements = (T[])new Object[capacity];
         free = capacity;
     }
 
     @Override
     public void push(Object element) {
         if (free > 0) {
-            elements[--free] = (Integer) element;
+            elements[--free] = (T) element;
         }
     }
 
     @Override
-    public void pop() {
+    public T pop() {
         if (free < capacity) {
-            System.out.println(elements[free++]);
+            return elements[free++];
         }
+
+        return null;
     }
 
     @Override
-    public void peek() {
-        System.out.println(elements[free]);
+    public T peek() {
+        return elements[free];
     }
 }

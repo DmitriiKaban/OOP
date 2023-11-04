@@ -2,7 +2,7 @@ package Queue;
 
 import md.kubuntu.Node;
 
-public class QueueLinkedList implements IQueue {
+public class QueueLinkedList<T> implements IQueue<T> {
 
     private Node current;
     private Node first;
@@ -13,7 +13,7 @@ public class QueueLinkedList implements IQueue {
     @Override
     public void add(Object element) {
         Node node = new Node();
-        node.variable = (Integer) element;
+        node.variable = element;
 
         if (first == null) {
             first = node;
@@ -26,13 +26,14 @@ public class QueueLinkedList implements IQueue {
     }
 
     @Override
-    public void peek() {
-        System.out.println(first.variable);
+    public T peek() {
+        return (T) first.variable;
     }
 
     @Override
-    public void poll() {
-        System.out.println(first.variable);
+    public T poll() {
+        T element = (T) first.variable;
         first = (Node) first.next;
+        return element;
     }
 }

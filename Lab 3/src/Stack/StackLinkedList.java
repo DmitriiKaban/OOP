@@ -2,7 +2,7 @@ package Stack;
 
 import md.kubuntu.Node;
 
-public class StackLinkedList implements IStack{
+public class StackLinkedList<T> implements IStack<T>{
 
     private Node current;
 
@@ -14,7 +14,7 @@ public class StackLinkedList implements IStack{
     @Override
     public void push(Object element) {
         Node node = new Node();
-        node.variable = (Integer) element;
+        node.variable = element;
         node.previous = current;
         current.next = node;
 
@@ -22,13 +22,14 @@ public class StackLinkedList implements IStack{
     }
 
     @Override
-    public void pop() {
-        System.out.println(current.variable);
+    public T pop() {
+        T t = (T) current.variable;
         current = (Node) current.previous;
+        return t;
     }
 
     @Override
-    public void peek() {
-        System.out.println(current.variable);
+    public T peek() {
+        return (T) current.variable;
     }
 }

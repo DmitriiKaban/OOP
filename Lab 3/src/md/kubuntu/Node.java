@@ -1,9 +1,9 @@
 package md.kubuntu;
 
-public class Node {
+public class Node<T> {
     public Object previous;
     public Object next;
-    public Integer variable;
+    public T variable;
 
     public Node() {
         this.previous = null;

@@ -1,20 +1,20 @@
 package Queue;
 
-public class QueueArrayUp implements IQueue{
+public class QueueArrayUp<T> implements IQueue<T>{
 
-    private final Integer[] elements;
+    private final T[] elements;
     private Integer top = -1;
     private final Integer capacity;
     private Integer head = 0;
 
     public QueueArrayUp(Integer capacity) {
         this.capacity = capacity;
-        elements = new Integer[capacity];
+        elements = (T[])new Object[capacity];
     }
 
     public QueueArrayUp() {
         this.capacity = 5;
-        elements = new Integer[capacity];
+        elements = (T[])new Object[capacity];
     }
 
     @Override
@@ -22,19 +22,21 @@ public class QueueArrayUp implements IQueue{
         top++;
         if (top.equals(capacity))
             top = 0;
-        elements[top] = (Integer) element;
+        elements[top] = (T) element;
     }
 
     @Override
-    public void peek() {
-        System.out.println(elements[head]);
+    public T peek() {
+        return elements[head];
     }
 
     @Override
-    public void poll() {
-        System.out.println(elements[head]);
+    public T poll() {
+        T element = elements[head];
         head++;
         if (head.equals(capacity))
             head = 0;
+
+        return element;
     }
 }
