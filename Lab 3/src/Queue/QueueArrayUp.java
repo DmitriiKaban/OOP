@@ -16,27 +16,43 @@ public class QueueArrayUp<T> implements IQueue<T>{
         this.capacity = 5;
         elements = (T[])new Object[capacity];
     }
-
     @Override
-    public void add(Object element) {
+    public void add(T element) {
         top++;
-        if (top.equals(capacity))
-            top = 0;
-        elements[top] = (T) element;
+        if (top.equals(capacity)) {
+            System.out.println("Queue is full");
+            top--;
+            return;
+        }
+        elements[top] = element;
     }
 
     @Override
     public T peek() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty");
+            return null;
+        }
         return elements[head];
     }
 
     @Override
     public T poll() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty");
+            return null;
+        }
         T element = elements[head];
         head++;
-        if (head.equals(capacity))
+        if (isEmpty()) {
+            // reset head and top
             head = 0;
-
+            top = -1;
+        }
         return element;
+    }
+
+    private boolean isEmpty() {
+        return head > top;
     }
 }

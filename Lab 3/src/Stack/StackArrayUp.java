@@ -17,14 +17,21 @@ public class StackArrayUp<T> implements IStack<T> {
 
     @Override
     public void push(Object element) {
-        if (top < capacity) {
+        if (top + 1 < capacity) {
             elements[++top] = (T) element;
+        } else {
+            System.out.println("Stack is full!");
         }
     }
 
     @Override
     public T pop() {
-        return top >= 0 ? elements[top--] : null;
+        if (top >= 0) {
+            return elements[top--];
+        } else {
+            System.out.println("Stack is empty");
+            return null;
+        }
     }
 
     @Override
