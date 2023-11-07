@@ -1,5 +1,7 @@
 package Stack;
 
+import java.util.Objects;
+
 public class StackArrayDown<T> implements IStack<T>{
     private final T[] elements;
     private Integer free;
@@ -22,14 +24,16 @@ public class StackArrayDown<T> implements IStack<T>{
 
     @Override
     public void push(Object element) {
-        if (free > 0) {
+        if (!isFull()) {
             elements[--free] = (T) element;
+        } else {
+            System.out.println("Stack is full");
         }
     }
 
     @Override
     public T pop() {
-        if (free < capacity) {
+        if (!isEmpty()) {
             return elements[free++];
         }
 
@@ -38,6 +42,21 @@ public class StackArrayDown<T> implements IStack<T>{
 
     @Override
     public T peek() {
-        return elements[free];
+        if (!isEmpty()) {
+            return elements[free];
+        } else {
+            System.out.println("Stack is empty");
+            return null;
+        }
+    }
+
+    @Override
+    public boolean isFull() {
+        return free <= 0;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return Objects.equals(free, capacity);
     }
 }

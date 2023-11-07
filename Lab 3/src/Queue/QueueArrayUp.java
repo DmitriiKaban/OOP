@@ -1,7 +1,6 @@
 package Queue;
 
 public class QueueArrayUp<T> implements IQueue<T>{
-
     private final T[] elements;
     private Integer top = -1;
     private final Integer capacity;
@@ -52,7 +51,12 @@ public class QueueArrayUp<T> implements IQueue<T>{
         return element;
     }
 
-    private boolean isEmpty() {
+    public boolean isEmpty() {
         return head > top;
+    }
+
+    @Override
+    public boolean isFull() {
+        return top.equals(capacity);
     }
 }

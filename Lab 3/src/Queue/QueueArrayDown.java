@@ -53,4 +53,14 @@ public class QueueArrayDown<T> implements IQueue<T> {
         }
         return element;
     }
+
+    @Override
+    public boolean isEmpty() {
+        return free == 0;
+    }
+
+    @Override
+    public boolean isFull() {
+        return free == capacity;
+    }
 }

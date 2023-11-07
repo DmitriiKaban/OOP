@@ -38,4 +38,14 @@ public class StackArrayUp<T> implements IStack<T> {
     public T peek() {
         return elements[top];
     }
+
+    @Override
+    public boolean isFull() {
+        return !(top + 1 < capacity);
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return top < 0;
+    }
 }
